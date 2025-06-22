@@ -18,39 +18,68 @@
             <h2>Añadir nueva película</h2>
             <form id="form-pelicula">
                 <label for="titulo">Título:</label>
-                <input type="text" id="titulo" required>
+                <input type="text" id="titulo" placeholder="añada título" required>
                 <label for="año">Año:</label>
-                <input type="number" id="año" required>
+                <input type="number" id="año" required min="1800" max="2025" />
                 <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" required>
+                <input type="text" id="descripcion" placeholder="añada descripción" required>
                 <label for="url-foto">URL foto:</label>
-                <input type="url" id="url-foto" required>
+                <input type="url" id="url-foto" placeholder="añada url de la foto" required>
                 <label for="genero">Género:</label>
                 <select id="genero" required>
+                    <option value="all">--Todos--</option>
                     <option value="Terror">Terror</option>
                     <option value="Accion">Acción</option>
                     <option value="Comedia">Comedia</option>
                     <option value="Romantica">Romántica</option>
                 </select>
                 <button type="submit">Añadir</button>
-        <section id= "filtro-genero">
+            </form>
+        </section>
+        <section id="tabla-foto">
+            <h2>Películas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Año</th>
+                        <th>Descripción</th>
+                        <th>Cartel</th>
+                        <th>Género</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <section id="filtro por genero">
             <h2>Filtro por género</h2>
             <form id="filtro-genero">
+                <select id="genero2" required>
+                    <option value="all">--Todos--</option>
+                    <option value="Terror">Terror</option>
+                    <option value="Accion">Acción</option>
+                    <option value="Comedia">Comedia</option>
+                    <option value="Romantica">Romántica</option>
 
+                </select>
+                <button type="submit">Seleccionar género</button>
             </form>
 
         </section>
 
-      
-        <section id="movies" >
-
-        </section>
 
     </main>
-        <footer>
+    <footer>
         <p>&copy; 2025 Netfly</p>
     </footer>
     <script src="./script.js"></script>
-   
+
 </body>
+
 </html>
