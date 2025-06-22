@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netfly</title>
+    <link rel="stylesheet" href="./styles/normalize.css">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Bienvenidos a Netfly</h1>
+    </header>
+    <main>
+        <section id="añadir-pelicula">
+            <h2>Añadir nueva película</h2>
+            <form id="form-pelicula">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" required>
+                <label for="año">Año:</label>
+                <input type="number" id="año" required>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" required>
+                <label for="url-foto">URL foto:</label>
+                <input type="url" id="url-foto" required>
+                <label for="genero">Género:</label>
+                <select id="genero" required>
+                    <option value="Terror">Terror</option>
+                    <option value="Accion">Acción</option>
+                    <option value="Comedia">Comedia</option>
+                    <option value="Romantica">Romántica</option>
+                </select>
+                <button type="submit">Añadir</button>
+        <section id= "filtro-genero">
+            <h2>Filtro por género</h2>
+            <form id="filtro-genero">
+
+            </form>
+
+        </section>
+
+      
+        <section id="movies" >
+
+        </section>
+
+    </main>
+        <footer>
+        <p>&copy; 2025 Netfly</p>
+    </footer>
+    <script src="./script.js"></script>
+   
+</body>
+</html>
