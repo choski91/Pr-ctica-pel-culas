@@ -65,6 +65,7 @@ document.getElementById("form-pelicula").addEventListener("submit", function (ev
     p.style.fontSize = "16px";
     p.appendChild(mensaje);
 
+    //añado peli nueva
   } else {
     const tablaUno = document.getElementById("tabla-foto");//selecciono tabla
     const tbodyUno = tablaUno.querySelector("tbody");//seleccciono body dentro de tabla
@@ -93,7 +94,11 @@ document.getElementById("form-pelicula").addEventListener("submit", function (ev
     filaUno.appendChild(celdageneroUno);
 
     tbodyUno.appendChild(filaUno);//cuando ya meti todas las celdas en la fila, añado la fila a mi tbody
-    const peliSumada = //creo el objeto para añadirla a mi primer array de peliculas
+
+
+    //creo el objeto con los valores q venian en el form(el q rellena el usuario) para añadir su peli a mi primer array de peliculas.
+    //la añado al array de peliculas para desp en el filtro x gen, filtrar s/ese array (peliculas)
+    const peliSumada =
     {
       titulo: titulo,
       año: año,
@@ -109,32 +114,35 @@ document.getElementById("form-pelicula").addEventListener("submit", function (ev
 });
 
 //--------------------------------
-function tablaPeliculas() {
+//adapte la funcion para que pueda pasar como parametro cualquier array de pelis
+
+function tablaPeliculas(tablaDePeliculas) {
   const tabla = document.getElementById("tabla-foto");
   let tbody = tabla.querySelector("tbody");
-  peliculas.forEach(pelicula => {//itero por mi array peliculas
+  tbody.innerHTML = "";
+  tablaDePeliculas.forEach(peliculaEnTabla => {//itero por el array de pelis q le pase a la funcion
     const fila = document.createElement("tr");
 
     const celdaTitulo = document.createElement("td");
-    celdaTitulo.textContent = pelicula.titulo;
+    celdaTitulo.textContent = peliculaEnTabla.titulo;
     fila.appendChild(celdaTitulo);
 
     const celdaAño = document.createElement("td");
-    celdaAño.textContent = pelicula.año;
+    celdaAño.textContent = peliculaEnTabla.año;
     fila.appendChild(celdaAño);
 
     const celdaDescripcion = document.createElement("td");
-    celdaDescripcion.textContent = pelicula.descripcion;
+    celdaDescripcion.textContent = peliculaEnTabla.descripcion;
     fila.appendChild(celdaDescripcion);
 
     const celdaurlFoto = document.createElement("td");
     const imagen = document.createElement("img");
-    imagen.src = pelicula.urlfoto;
+    imagen.src = peliculaEnTabla.urlfoto;
     celdaurlFoto.appendChild(imagen);
     fila.appendChild(celdaurlFoto);
 
     const celdagenero = document.createElement("td");
-    celdagenero.textContent = pelicula.genero;
+    celdagenero.textContent = peliculaEnTabla.genero;
     fila.appendChild(celdagenero);
 
     tbody.appendChild(fila);
@@ -142,52 +150,20 @@ function tablaPeliculas() {
   })
 };
 
-tablaPeliculas();
+tablaPeliculas(peliculas);
 
-
+//cuando usuario envia el form de filtro x genero
 
 document.getElementById("filtro-genero").addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const generoFiltrado = event.target.genero2.value;
+  const generoFiltrado = event.target.genero2.value;//me guardo el valor del genero q selecciono el usuario
 
+  //busco en mi array peliculas las pelis cuyo genero coincida con el genero seleccionado x usuario
   const generoFinal = peliculas.filter(pelicula => pelicula.genero == generoFiltrado);
-  console.log(generoFinal);
 
-  const tabla = document.getElementById("tabla-foto");
-  let tbody = tabla.querySelector("tbody");
+  tablaPeliculas(generoFinal);
 
-  tbody.innerHTML = "";
-
-    generoFinal.forEach(peliculaInicial => {//itero por mi array peliculas
-    const fila = document.createElement("tr");
-
-    const celdaTitulo = document.createElement("td");
-    celdaTitulo.textContent = peliculaInicial.titulo;
-    fila.appendChild(celdaTitulo);
-
-    const celdaAño = document.createElement("td");
-    celdaAño.textContent = peliculaInicial.año;
-    fila.appendChild(celdaAño);
-
-    const celdaDescripcion = document.createElement("td");
-    celdaDescripcion.textContent = peliculaInicial.descripcion;
-    fila.appendChild(celdaDescripcion);
-
-    const celdaurlFoto = document.createElement("td");
-    const imagen = document.createElement("img");
-    imagen.src = peliculaInicial.urlfoto;
-    celdaurlFoto.appendChild(imagen);
-    fila.appendChild(celdaurlFoto);
-
-    const celdagenero = document.createElement("td");
-    celdagenero.textContent = peliculaInicial.genero;
-    fila.appendChild(celdagenero);
-
-    tbody.appendChild(fila);
-
-  })
- 
 });
 
 
