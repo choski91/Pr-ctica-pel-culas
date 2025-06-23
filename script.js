@@ -43,16 +43,19 @@ document.getElementById("form-pelicula").addEventListener("submit", function (ev
 
   let msj = "";
 
-  if (titulo.length < 3 || titulo.length > 30) {
+  if (titulo.length < 1 || titulo.length > 70) {
 
-    msj += "Título fuera de tamaño: debe contener entre 3 y 30 caracteres\n";
+    msj += "Título fuera de tamaño: debe contener entre 1 y 70 caracteres\n";
   }
 
-  if (descripcion.length < 15 || descripcion.length > 70) {
+  if (descripcion.length < 15 || descripcion.length > 140) {
 
-    msj += "Descripción fuera de tamaño: debe contener entre 15 y 70 caracteres\n";
+    msj += "Descripción fuera de tamaño: debe contener entre 15 y 140 caracteres\n";
   }
 
+  if (año < 1800 || año > 2025) {
+    msj += "El año debe estar comprendido entre 1800 y 2025\n";
+  }
 
   if (msj.length != 0) {//cuando msj no esta vacio, porque en la validacion hay algun error
     alert(msj);
@@ -62,39 +65,48 @@ document.getElementById("form-pelicula").addEventListener("submit", function (ev
     p.style.fontSize = "16px";
     p.appendChild(mensaje);
 
-    //document.getElementById("Contacto").appendChild(p);
   } else {
-  const tablaUno = document.getElementById("tabla-foto");//selecciono tabla
-  const tbodyUno = tablaUno.querySelector("tbody");//seleccciono body dentro de tabla
-  const filaUno = document.createElement("tr");//creo fila suelta
+    const tablaUno = document.getElementById("tabla-foto");//selecciono tabla
+    const tbodyUno = tablaUno.querySelector("tbody");//seleccciono body dentro de tabla
+    const filaUno = document.createElement("tr");//creo fila suelta
 
-  const celdaTituloUno = document.createElement("td");//creo celda suelto
-  celdaTituloUno.textContent = titulo;//añado a celda de arriba el contendio del titulo de mi form 
-  filaUno.appendChild(celdaTituloUno);//añado a fila
+    const celdaTituloUno = document.createElement("td");//creo celda suelto
+    celdaTituloUno.textContent = titulo;//añado a celda de arriba el contendio del titulo de mi form 
+    filaUno.appendChild(celdaTituloUno);//añado a fila
 
-  const celdaAñoUno = document.createElement("td");
-  celdaAñoUno.textContent = año;
-  filaUno.appendChild(celdaAñoUno);
+    const celdaAñoUno = document.createElement("td");
+    celdaAñoUno.textContent = año;
+    filaUno.appendChild(celdaAñoUno);
 
-  const celdaDescripcionUno = document.createElement("td");
-  celdaDescripcionUno.textContent = descripcion;
-  filaUno.appendChild(celdaDescripcionUno);
+    const celdaDescripcionUno = document.createElement("td");
+    celdaDescripcionUno.textContent = descripcion;
+    filaUno.appendChild(celdaDescripcionUno);
 
-  const celdaurlFotoUno = document.createElement("td");
-  const imagen = document.createElement("img");
-  imagen.src = urlfoto;
-  celdaurlFotoUno.appendChild(imagen);
-  filaUno.appendChild(celdaurlFotoUno);
+    const celdaurlFotoUno = document.createElement("td");
+    const imagen = document.createElement("img");
+    imagen.src = urlfoto;
+    celdaurlFotoUno.appendChild(imagen);
+    filaUno.appendChild(celdaurlFotoUno);
 
-  const celdageneroUno = document.createElement("td");
-  celdageneroUno.textContent = genero;
-  filaUno.appendChild(celdageneroUno);
+    const celdageneroUno = document.createElement("td");
+    celdageneroUno.textContent = genero;
+    filaUno.appendChild(celdageneroUno);
 
-  tbodyUno.appendChild(filaUno);//cuando ya meti todas las celdas en la fila, añado la fila a mi tbody
+    tbodyUno.appendChild(filaUno);//cuando ya meti todas las celdas en la fila, añado la fila a mi tbody
+    const peliSumada = //creo el objeto para añadirla a mi primer array de peliculas
+    {
+      titulo: titulo,
+      año: año,
+      descripcion: descripcion,
+      urlfoto: urlfoto,
+      genero: genero
+    }
+    console.log(peliSumada);
+    peliculas.push(peliSumada);
+    console.log(peliculas);
 
-
-  
-  }});
+  }
+});
 
 //--------------------------------
 function tablaPeliculas() {
@@ -127,7 +139,57 @@ function tablaPeliculas() {
 
     tbody.appendChild(fila);
 
-  })};
+  })
+};
 
 tablaPeliculas();
 
+
+
+document.getElementById("filtro-genero").addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const generoFiltrado = event.target.genero2.value;
+
+  const generoFinal = peliculas.filter(pelicula => pelicula.genero == generoFiltrado);
+  console.log(generoFinal);
+
+  const tabla = document.getElementById("tabla-foto");
+  let tbody = tabla.querySelector("tbody");
+
+  tbody.innerHTML = "";
+
+    generoFinal.forEach(peliculaInicial => {//itero por mi array peliculas
+    const fila = document.createElement("tr");
+
+    const celdaTitulo = document.createElement("td");
+    celdaTitulo.textContent = peliculaInicial.titulo;
+    fila.appendChild(celdaTitulo);
+
+    const celdaAño = document.createElement("td");
+    celdaAño.textContent = peliculaInicial.año;
+    fila.appendChild(celdaAño);
+
+    const celdaDescripcion = document.createElement("td");
+    celdaDescripcion.textContent = peliculaInicial.descripcion;
+    fila.appendChild(celdaDescripcion);
+
+    const celdaurlFoto = document.createElement("td");
+    const imagen = document.createElement("img");
+    imagen.src = peliculaInicial.urlfoto;
+    celdaurlFoto.appendChild(imagen);
+    fila.appendChild(celdaurlFoto);
+
+    const celdagenero = document.createElement("td");
+    celdagenero.textContent = peliculaInicial.genero;
+    fila.appendChild(celdagenero);
+
+    tbody.appendChild(fila);
+
+  })
+ 
+});
+
+
+//document.getElementById("añadir-pelicula").appendChild(p);
+//(mensaje error en rojo)
