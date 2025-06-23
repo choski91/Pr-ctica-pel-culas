@@ -2,10 +2,12 @@
   --color-header-fondo: #333;
   --color-lila: palevioletred;
   --color-fondo: goldenrod;
+  --color-blanco: #ddd;
 }
 
 html {
   font-size: 16px;
+
 }
 
 body {
@@ -70,4 +72,113 @@ select {
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
+}
+
+#tabla-foto {
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  background-color: var(--color-blanco);
+  color: var(--color-texto-general);
+}
+
+/* encabezado tabla */
+
+#tabla-foto thead {
+  background-color: var(--color-header-fondo);
+  color: var(--color-lila);
+}
+
+/* celdas encabezado */
+#tabla-foto th {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 2px solid var(--color-lila);
+  font-weight: bold;
+}
+
+/* filas del cuerpo de la tabla (tbody tr) */
+#tabla-foto tbody tr {
+  border-bottom: 1px solid var(--color-blanco);
+}
+
+/* filas */
+#tabla-foto tbody tr:hover {
+  background-color: var(--color-blanco);
+  cursor: pointer;
+}
+
+/* celdas del cuerpo */
+#tabla-foto td {
+  padding: 10px 15px;
+  vertical-align: middle;
+}
+
+/* imágenes dentro de las celdas */
+#tabla-foto td img {
+  max-width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* título de la sección de la tabla */
+section#tabla-foto h2 {
+  text-align: center;
+  color: var(--color-header-fondo);
+  margin-bottom: 1rem;
+  
+}
+
+
+@media (max-width: 768px) {
+  #tabla-foto {
+    display: block;
+    white-space: nowrap;
+  }
+
+  #tabla-foto thead,
+  #tabla-foto tbody,
+  #tabla-foto th,
+  #tabla-foto td,
+  #tabla-foto tr {
+    display: block;
+    /* C/ elemento de la tabla se convierte en un bloque */
+  }
+
+  #tabla-foto thead tr {
+    position: absolute;
+    /* Oculta  encabezado tradicional */
+    top: -9999px;
+    left: -9999px;
+  }
+
+  #tabla-foto tr {
+    border: 1px solid;
+    margin-bottom: 1rem;
+  }
+
+  #tabla-foto td {
+    border: none;
+    border-bottom: 1px;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+  }
+
+  #tabla-foto td:before {
+    /* etiquetas para cada celda*/
+    content: attr(data-label);
+    position: absolute;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    color: var(--color-header-fondo);
+  }
 }

@@ -33,10 +33,13 @@ const peliculas = [
 ];
 
 document.getElementById("form-pelicula").addEventListener("submit", function (event) {
-  event.preventDefault();
+  event.preventDefault();//previene q se envie el form para trab en el
 
-  const titulo = event.target.titulo.value;
+  const titulo = event.target.titulo.value;//guardo los valores q rellena en c/campo el usuario en una variable
   const descripcion = event.target.descripcion.value;
+  const año = event.target.año.value;
+  const urlfoto = event.target.urlfoto.value;
+  const genero = event.target.genero.value;
 
   let msj = "";
 
@@ -51,7 +54,7 @@ document.getElementById("form-pelicula").addEventListener("submit", function (ev
   }
 
 
-  if (msj.length != 0) {
+  if (msj.length != 0) {//cuando msj no esta vacio, porque en la validacion hay algun error
     alert(msj);
     let p = document.createElement("pre");
     let mensaje = document.createTextNode(msj);
@@ -60,20 +63,44 @@ document.getElementById("form-pelicula").addEventListener("submit", function (ev
     p.appendChild(mensaje);
 
     //document.getElementById("Contacto").appendChild(p);
-  }
-  else {
+  } else {
+  const tablaUno = document.getElementById("tabla-foto");//selecciono tabla
+  const tbodyUno = tablaUno.querySelector("tbody");//seleccciono body dentro de tabla
+  const filaUno = document.createElement("tr");//creo fila suelta
 
-    alert("Formulario enviado con éxito");
-    event.target.submit();
-  }
-});
+  const celdaTituloUno = document.createElement("td");//creo celda suelto
+  celdaTituloUno.textContent = titulo;//añado a celda de arriba el contendio del titulo de mi form 
+  filaUno.appendChild(celdaTituloUno);//añado a fila
+
+  const celdaAñoUno = document.createElement("td");
+  celdaAñoUno.textContent = año;
+  filaUno.appendChild(celdaAñoUno);
+
+  const celdaDescripcionUno = document.createElement("td");
+  celdaDescripcionUno.textContent = descripcion;
+  filaUno.appendChild(celdaDescripcionUno);
+
+  const celdaurlFotoUno = document.createElement("td");
+  const imagen = document.createElement("img");
+  imagen.src = urlfoto;
+  celdaurlFotoUno.appendChild(imagen);
+  filaUno.appendChild(celdaurlFotoUno);
+
+  const celdageneroUno = document.createElement("td");
+  celdageneroUno.textContent = genero;
+  filaUno.appendChild(celdageneroUno);
+
+  tbodyUno.appendChild(filaUno);//cuando ya meti todas las celdas en la fila, añado la fila a mi tbody
 
 
+  
+  }});
 
+//--------------------------------
 function tablaPeliculas() {
   const tabla = document.getElementById("tabla-foto");
   let tbody = tabla.querySelector("tbody");
-  peliculas.forEach(pelicula => {
+  peliculas.forEach(pelicula => {//itero por mi array peliculas
     const fila = document.createElement("tr");
 
     const celdaTitulo = document.createElement("td");
@@ -99,9 +126,8 @@ function tablaPeliculas() {
     fila.appendChild(celdagenero);
 
     tbody.appendChild(fila);
-  })
-};
+
+  })};
 
 tablaPeliculas();
-
 
