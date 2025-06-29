@@ -12,7 +12,7 @@ const peliculas = [
     año: 1987,
     descripcion: "Un grupo de mercenarios es contratado por la CIA para rescatar a unos pilotos que han sido apresados por la guerrilla en la selva centroamericana.",
     urlfoto: "./assets/images/Depredador-accion.jpg",
-    genero: "Acción",
+    genero: "Accion",
   },
 
   {
@@ -27,7 +27,7 @@ const peliculas = [
     año: 1995,
     descripcion: "La apacible pero aburrida vida de Francesca Johnson, un ama de casa que vive en una granja con su familia, se ve alterada con la llegada de Robert Kincaid, un veterano fotógrafo de la revista National Geographic, que visita el condado de Madison para fotografiar sus viejos puentes.",
     urlfoto: "./assets/images/madison-romantica.jpg",
-    genero: "Romántica",
+    genero: "Romantica",
   }
 
 ];
@@ -145,6 +145,49 @@ function tablaPeliculas(tablaDePeliculas) {
     celdagenero.textContent = peliculaEnTabla.genero;
     fila.appendChild(celdagenero);
 
+    const celdaBotonDelete = document.createElement("td");
+    const botonDelete = document.createElement("button");
+    botonDelete.textContent = "Eliminar"
+    botonDelete.classList.add("btn-delete");
+    celdaBotonDelete.appendChild(botonDelete);
+    fila.appendChild(celdaBotonDelete);
+
+
+    const buttonDelete = fila.querySelector(".btn-delete");
+    buttonDelete.addEventListener("click", (event) => {
+       const filaAEliminar = event.target.closest("tr");
+
+      if (filaAEliminar) {
+        filaAEliminar.remove();
+      }
+    });
+
+    const celdaBotonEditar = document.createElement("td");
+    const botonEditar = document.createElement("button");
+    botonEditar.textContent = "Editar"
+    botonEditar.classList.add("btn-editar");
+    celdaBotonEditar.appendChild(botonEditar);
+    fila.appendChild(celdaBotonEditar);
+
+    const buttonEdit = fila.querySelector(".btn-editar");
+    buttonEdit.addEventListener("click", (event) => {
+     
+      fila.innerHTML = `
+        <form class="edit-form">
+          <label> Título: <input type="text" name="titulo" value="${peliculaEnTabla.titulo}" required></label>
+          <label>Año: <input type="number" name="año" value="${peliculaEnTabla.año}" required></label>
+          <label>Descripción: <input type="text" name="descripcion" value="${peliculaEnTabla.descripcion}" required></label>
+          <label>URL foto: <input type="url" name="urlfoto" value="${peliculaEnTabla.urlfoto}" required></label>
+          <label>Género: <input type="text" name="genero" value="${peliculaEnTabla.genero}" required></label>
+
+          <button type="submit">Guardar</button>
+        </form>
+      `;
+
+      
+    })
+
+
     tbody.appendChild(fila);
 
   })
@@ -161,7 +204,7 @@ document.getElementById("filtro-genero").addEventListener("submit", function (ev
 
   //busco en mi array peliculas las pelis cuyo genero coincida con el genero seleccionado x usuario
   const generoFinal = peliculas.filter(pelicula => pelicula.genero == generoFiltrado);
-
+  console.log(generoFinal)
   tablaPeliculas(generoFinal);
 
 });
