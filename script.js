@@ -155,11 +155,14 @@ function tablaPeliculas(tablaDePeliculas) {
 
     const buttonDelete = fila.querySelector(".btn-delete");
     buttonDelete.addEventListener("click", (event) => {
-       const filaAEliminar = event.target.closest("tr");
+      //  const filaAEliminar = event.target.closest("tr");
 
-      if (filaAEliminar) {
-        filaAEliminar.remove();
+      // if (filaAEliminar) {
+      const borrar = confirm("¿Estás seguro que quieres borarr?");
+      if (borrar == true){
+        fila.remove();
       }
+        
     });
 
     const celdaBotonEditar = document.createElement("td");
@@ -172,7 +175,7 @@ function tablaPeliculas(tablaDePeliculas) {
     const buttonEdit = fila.querySelector(".btn-editar");
     buttonEdit.addEventListener("click", (event) => {
      
-      fila.innerHTML = `
+      celdaBotonEditar.innerHTML = `
         <form class="edit-form">
           <label> Título: <input type="text" name="titulo" value="${peliculaEnTabla.titulo}" required></label>
           <label>Año: <input type="number" name="año" value="${peliculaEnTabla.año}" required></label>
@@ -184,7 +187,23 @@ function tablaPeliculas(tablaDePeliculas) {
         </form>
       `;
 
-      
+      const editForm = fila.querySelector(".edit-form");
+        editForm.addEventListener("submit", (event) => {
+           console.log("¡Evento de submit del formulario de edición disparado!");
+        event.preventDefault(); // Evitar el comportamiento por defecto del formulario
+
+        // Actualizar datos del estudiante
+        peliculaEnTabla.titulo = editForm.elements.titulo.value;
+        peliculaEnTabla.año = editForm.elements.año.value;
+        peliculaEnTabla.descripcion = editForm.elements.descripcion.value;
+        peliculaEnTabla.urlfoto = editForm.elements.urlfoto.value;
+        peliculaEnTabla.genero = editForm.elements.genero.value;
+
+        console.log(peliculaEnTabla); 
+
+        // Renderizar el artículo actualizado
+        tablaPeliculas(peliculas);
+      });
     })
 
 
@@ -194,6 +213,7 @@ function tablaPeliculas(tablaDePeliculas) {
 };
 
 tablaPeliculas(peliculas);
+
 
 //cuando usuario envia el form de filtro x genero
 
@@ -210,5 +230,3 @@ document.getElementById("filtro-genero").addEventListener("submit", function (ev
 });
 
 
-//document.getElementById("añadir-pelicula").appendChild(p);
-//(mensaje error en rojo)
